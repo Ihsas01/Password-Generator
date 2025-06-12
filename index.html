@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Password Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+    <div class="password-container">
+        <h2>Advanced Password Generator</h2>
+        <div class="input-container">
+            <input type="text" id="input" class="input" placeholder="Your Password" readonly>
+            <i class="fas fa-copy"></i>
+        </div>
+        <div class="strength-container">
+            <div class="strength-bar" id="strength-bar"></div>
+            <span id="strength-text">Weak</span>
+        </div>
+        <div class="options-container">
+            <label>Length: <span id="length-value">14</span></label>
+            <input type="range" id="length-slider" min="8" max="50" value="14">
+            <div class="checkboxes">
+                <label><input type="checkbox" id="uppercase" checked> Uppercase</label>
+                <label><input type="checkbox" id="lowercase" checked> Lowercase</label>
+                <label><input type="checkbox" id="numbers" checked> Numbers</label>
+                <label><input type="checkbox" id="symbols" checked> Symbols</label>
+            </div>
+        </div>
+        <button class="btn">Generate Password</button>
+        <div class="alert-container active">
+            Password Copied
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
