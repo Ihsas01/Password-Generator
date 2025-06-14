@@ -3,33 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Password Generator</title>
+    <title>SecurePass Forge</title>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
-<body>
-    <div class="password-container">
-        <h2>Advanced Password Generator</h2>
-        <div class="input-container">
-            <input type="text" id="input" class="input" placeholder="Your Password" readonly>
-            <i class="fas fa-copy"></i>
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-200 via-purple-200 to-pink-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 transition-colors duration-500">
+    <div class="password-container bg-white/30 dark:bg-gray-800/30 backdrop-blur-lg p-8 rounded-2xl shadow-xl max-w-md w-full mx-4 transform transition-all duration-300 hover:-translate-y-2">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white">SecurePass Forge</h2>
+            <button id="theme-toggle" class="text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors duration-300">
+                <i class="fas fa-moon animate-spin-on-hover"></i>
+            </button>
         </div>
-        <div class="strength-container">
-            <div class="strength-bar" id="strength-bar"></div>
-            <span id="strength-text">Weak</span>
+
+        <div class="mb-4">
+            <label for="name-input" class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Your Name</label>
+            <input id="name-input" type="text" class="w-full p-3 border border-gray-300/50 dark:border-gray-600/50 rounded-lg bg-white/50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all duration-300" placeholder="Enter your name">
         </div>
-        <div class="options-container">
-            <label>Length: <span id="length-value">14</span></label>
-            <input type="range" id="length-slider" min="8" max="50" value="14">
-            <div class="checkboxes">
-                <label><input type="checkbox" id="uppercase" checked> Uppercase</label>
-                <label><input type="checkbox" id="lowercase" checked> Lowercase</label>
-                <label><input type="checkbox" id="numbers" checked> Numbers</label>
-                <label><input type="checkbox" id="symbols" checked> Symbols</label>
+
+        <div class="mb-4">
+            <label for="word-input" class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Custom Word</label>
+            <input id="word-input" type="text" class="w-full p-3 border border-gray-300/50 dark:border-gray-600/50 rounded-lg bg-white/50 dark:bg-gray-700/50 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all duration-300" placeholder="Enter a custom word">
+        </div>
+
+        <div class="input-container flex items-center border-2 border-gray-300/50 dark:border-gray-600/50 p-3 rounded-lg bg-white/50 dark:bg-gray-700/50 mb-4">
+            <input id="input" class="input flex-grow bg-transparent outline-none text-lg text-gray-800 dark:text-white font-mono" readonly placeholder="Generated Password">
+            <i class="fa fa-copy cursor-pointer text-gray-500 dark:text-gray-300 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors duration-300 animate-pulse-on-hover"></i>
+        </div>
+
+        <div class="strength-container flex items-center gap-3 mb-4">
+            <div id="strength-bar" class="strength-bar flex-grow h-3 bg-gray-200/50 dark:bg-gray-600/50 rounded-full overflow-hidden"></div>
+            <span id="strength-text" class="text-sm font-medium text-gray-600 dark:text-gray-200">Weak</span>
+        </div>
+        <p id="entropy-text" class="text-sm text-gray-500 dark:text-gray-300 mb-4">Entropy: 0 bits</p>
+
+        <div class="options-container bg-white/30 dark:bg-gray-700/30 backdrop-blur-md p-4 rounded-lg mb-4">
+            <label class="block text-gray-700 dark:text-gray-100 font-medium mb-2">Length: <span id="length-value">14</span></label>
+            <input id="length-slider" type="range" min="8" max="30" value="14" class="w-full h-3 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-lg appearance-none cursor-pointer">
+            <div class="checkboxes grid grid-cols-2 gap-2 mt-3">
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-100"><input id="uppercase" type="checkbox" checked class="text-indigo-500 focus:ring-indigo-400"> Uppercase</label>
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-100"><input id="lowercase" type="checkbox" checked class="text-indigo-500 focus:ring-indigo-400"> Lowercase</label>
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-100"><input id="numbers" type="checkbox" checked class="text-indigo-500 focus:ring-indigo-400"> Numbers</label>
+                <label class="flex items-center gap-2 text-gray-700 dark:text-gray-100"><input id="symbols" type="checkbox" checked class="text-indigo-500 focus:ring-indigo-400"> Symbols</label>
             </div>
         </div>
-        <button class="btn">Generate Password</button>
-        <div class="alert-container active">
+
+        <button class="btn w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-3 rounded-lg font-semibold hover:from-indigo-600 hover:to-purple-600 active:scale-95 transition-all duration-300">Generate Password</button>
+
+        <div id="history-container" class="mt-6">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Password History</h3>
+            <ul id="history-list" class="space-y-2"></ul>
+        </div>
+
+        <div class="alert-container fixed bottom-5 right-5 w-80 h-16 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-lg shadow-lg flex items-center justify-center text-lg transition-all duration-400 active:right-[-320px] animate-slide-in">
             Password Copied
         </div>
     </div>
